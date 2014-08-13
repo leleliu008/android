@@ -1,4 +1,4 @@
-obj/local/armeabi/objs/hello/hello.o: jni/hello.c \
+obj/local/armeabi/objs/main/main.o: jni/main.c \
  /home/leleliu008/bin/android/android-ndk-r9c/platforms/android-3/arch-arm/usr/include/stdio.h \
  /home/leleliu008/bin/android/android-ndk-r9c/platforms/android-3/arch-arm/usr/include/sys/cdefs.h \
  /home/leleliu008/bin/android/android-ndk-r9c/platforms/android-3/arch-arm/usr/include/sys/cdefs_elf.h \
