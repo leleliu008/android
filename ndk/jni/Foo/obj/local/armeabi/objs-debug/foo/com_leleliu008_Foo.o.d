@@ -16,6 +16,7 @@ obj/local/armeabi/objs-debug/foo/com_leleliu008_Foo.o: \
  /home/leleliu008/bin/android/android-ndk-r9c/platforms/android-19/arch-arm/usr/include/linux/types.h \
  /home/leleliu008/bin/android/android-ndk-r9c/platforms/android-19/arch-arm/usr/include/machine/kernel.h \
  /home/leleliu008/bin/android/android-ndk-r9c/platforms/android-19/arch-arm/usr/include/sys/sysmacros.h \
+ jni/log.h \
  /home/leleliu008/bin/android/android-ndk-r9c/platforms/android-19/arch-arm/usr/include/android/log.h \
  jni/com_leleliu008_Foo.h \
  /home/leleliu008/bin/android/android-ndk-r9c/platforms/android-19/arch-arm/usr/include/jni.h
@@ -51,6 +52,8 @@ obj/local/armeabi/objs-debug/foo/com_leleliu008_Foo.o: \
 /home/leleliu008/bin/android/android-ndk-r9c/platforms/android-19/arch-arm/usr/include/machine/kernel.h:
 
 /home/leleliu008/bin/android/android-ndk-r9c/platforms/android-19/arch-arm/usr/include/sys/sysmacros.h:
+
+jni/log.h:
 
 /home/leleliu008/bin/android/android-ndk-r9c/platforms/android-19/arch-arm/usr/include/android/log.h:
 
