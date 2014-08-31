@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Review id="2014-05-30-浏览器重构codereview">
+  <ReviewIssue id="HVT3BJXO">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2014-05-30 :: 14:08:59:052 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2014-05-30 :: 15:25:28:880 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>leleliu008@gmail.com</ReviewerId>
+    <AssignedTo>leleliu008@gmail.com</AssignedTo>
+    <File></File>
+    <Type>item.type.label.programLogic</Type>
+    <Severity>item.severity.label.critical</Severity>
+    <Summary>一处逻辑错误</Summary>
+    <Description></Description>
+    <Annotation>||和&amp;&amp;使用反了</Annotation>
+    <Revision></Revision>
+    <Resolution>item.resolution.label.validFixlater</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+</Review>

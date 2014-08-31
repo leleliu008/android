@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+	<Button 
+	    android:id="@+id/open"
+	    android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="激活"/>
+	<Button 
+	    android:id="@+id/close"
+	    android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="禁用"/>
+	<Button 
+	    android:id="@+id/system_lock"
+	    android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="系统锁屏"/>
+	<Button 
+	    android:id="@+id/custom_lock"
+	    android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="自定义锁屏"/>
+</LinearLayout>
