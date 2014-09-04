@@ -2,16 +2,25 @@ package com.leleliu008.androidsdk.net.http;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 /* 使用HttpClient请求网络连接 */
 final class HttpClientRequest implements IHttpRequest, IHttpClientRequest {
 	
 	@Override
-	public byte[] request(HttpURLConnection httpURLConnection) throws IOException {
-		return httpURLConnection == null ? null : 
-			IOUtil.inputStream2bytes(httpURLConnection.getInputStream());
+	public byte[] request(HttpUriRequest request) throws IOException {
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpResponse httpResponse = httpClient.execute(request);
+		if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+			return IOUtil.inputStream2bytes(httpResponse.getEntity().getContent());
+		}
+		return null;
 	}
 	
 	@Override
@@ -25,13 +34,12 @@ final class HttpClientRequest implements IHttpRequest, IHttpClientRequest {
 			return null;
 		}
 		
-		URL url = new URL(urlStr);
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		//设置请求方式为GET方式，可以不设置，默认就是GET方式的
-		connection.setRequestMethod("GET");
-		//设置请求超时5秒
-		connection.setConnectTimeout(5 * 1000);
-		//得到输入流，就会返回的数据
-		return connection.getInputStream();
+		HttpGet httpGet = new HttpGet(urlStr);
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpResponse httpResponse = httpClient.execute(httpGet);
+		if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+			return httpResponse.getEntity().getContent();
+		}
+		return null;
 	}
 }
