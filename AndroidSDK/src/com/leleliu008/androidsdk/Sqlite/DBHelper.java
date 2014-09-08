@@ -7,6 +7,7 @@ import android.util.Log;
 
 /**
  * 测试使用SQLiteOpenHelper进行数据库操作
+ * 
  * @author leleliu008
  *
  */
@@ -14,7 +15,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	private static final String TAG = "DBHelper";
 	private static final String DB_NAME = "test.db";
 	private static final int DB_VERSION = 2;
-	private static final String SQL_CREATE = "CREATE TABLE [person] ("
+	private static final String SQL_CREATE = "CREATE TABLE IF NOT EXISTS [person] ("
 						        + "[id] INTEGER PRIMARY KEY AUTOINCREMENT,"
 						        + "[name] TEXT,"
 						        + "[age] INTEGER);";
@@ -36,13 +37,13 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.beginTransaction();
 		try {
 			db.execSQL("ALTER TABLE [person] RENAME TO [_person]");
-			db.execSQL("CREATE TABLE [person] ("
+			db.execSQL("CREATE TABLE IF NOT EXSITS [person] ("
 							        + "[id] INTEGER PRIMARY KEY AUTOINCREMENT,"
 							        + "[name] TEXT,"
 							        + "[age] INTEGER,"
 							        + "[sex] INTEGER);");
 			db.execSQL("INSERT INTO [person] ([id],[name],[age]) SELECT * FROM [_person]");
-			db.execSQL("DROP TABLE [_person]");
+			db.execSQL("DROP TABLE IF EXISTS [_person]");
 			db.setTransactionSuccessful();
 		} catch (Exception e) {
 			e.printStackTrace();
