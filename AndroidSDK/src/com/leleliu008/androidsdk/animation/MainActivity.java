@@ -29,10 +29,6 @@ public class MainActivity extends Activity{
 //		imageView.startAnimation(rotateAnimation);
 		
 		
-		Intent intent = new Intent(this, XXService.class);
-		startService(intent);
-		
-		
 //		RotateView rotateView = (RotateView) findViewById(R.id.rotateview);
 //		rotateView.start();
 //		new Son1().xx();
