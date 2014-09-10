@@ -1,4 +1,4 @@
-package com.leleliu008.androidsdk.data.xml;
+package com.leleliu008.data.xml;
 
 import java.util.Map;
 
