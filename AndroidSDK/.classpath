@@ -3,6 +3,7 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="lib" path="libs/plugin.jar"/>
+	<classpathentry kind="lib" path="libs/universal-image-loader-1.9.3.jar" sourcepath="/media/leleliu008/D/快盘/计算机/编程/操作系统/Android/开源框架/universal-image-loader/universal-image-loader-1.9.3-sources.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="lib" path="libs/android-support-v4.jar" sourcepath="/home/leleliu008/bin/adt-bundle-linux-x86_64-20131030/sdk/extras/android/support/v4/src"/>
 	<classpathentry kind="src" path="src"/>
