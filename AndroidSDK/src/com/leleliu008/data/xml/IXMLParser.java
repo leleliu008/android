@@ -6,9 +6,8 @@ import java.io.Reader;
 /**
  * xml解析接口
  * 
- * @author leleliu008
+ * @author 792793182@qq.com
  *
- * @param <Result>
  */
 public interface IXMLParser<Result> {
 	

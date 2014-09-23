@@ -2,6 +2,12 @@ package com.leleliu008.security;
 
 import java.io.ByteArrayOutputStream;
 
+/**
+ * Base64编码和解码
+ * 
+ * @author 792793182@qq.com
+ *
+ */
 public final class Base64 {
 
 	private static final char[] base64EncodeChars = new char[] { 

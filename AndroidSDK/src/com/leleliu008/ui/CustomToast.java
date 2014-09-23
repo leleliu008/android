@@ -17,7 +17,7 @@ import android.widget.TextView;
 /**
  * 自定义Toast，可以自有控制要显示的时间
  * 
- * @author leleliu008
+ * @author 792793182@qq.com
  * 
  */
 public class CustomToast {
@@ -91,6 +91,17 @@ public class CustomToast {
 		this.rootView.addView(view);
 	}
 
+	/**
+	 * 
+	 * @param gravity 
+	 * 	@see Gravity.TOP
+	 * 	@see Gravity.BOTTOM
+	 * 	@see Gravity.LEFT
+	 * 	@see Gravity.RIGHT
+	 * 
+	 * @param xOffset
+	 * @param yOffset
+	 */
 	public void show(int gravity, int xOffset, int yOffset) {
 		LayoutParams lp = getDefaultLayoutParams();
 		lp.gravity = gravity;

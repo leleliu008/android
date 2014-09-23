@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 线程池
  * 
- * @author leleliu008
+ * @author 792793182@qq.com
  * 
  */
 public final class ThreadPoolManager {

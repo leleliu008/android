@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 /**
  * 生成信息摘要的工具类
  * 
- * @author leleliu008
+ * @author 792793182@qq.com
  *
  */
 public final class FingerPrint {

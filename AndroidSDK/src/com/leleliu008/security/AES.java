@@ -4,6 +4,12 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * AES对称加密和解密，传入的key必须是128bit=16byte
+ * 
+ * @author 792793182@qq.com
+ *
+ */
 public final class AES {
 	
 	private static final String Algorithm = "AES/ECB/PKCS7Padding";

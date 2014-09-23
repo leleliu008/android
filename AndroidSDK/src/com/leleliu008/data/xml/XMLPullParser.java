@@ -13,9 +13,9 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 /**
  * XML解析类
- * @author leleliu008
+ * 
+ * @author 792793182@qq.com
  *
- * @param <Result>
  */
 public abstract class XMLPullParser<Result> implements IXMLParser<Result>, IXMLEvent<Result> {
 

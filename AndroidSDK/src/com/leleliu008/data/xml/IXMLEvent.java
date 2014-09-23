@@ -5,9 +5,8 @@ import java.util.Map;
 /**
  * XML事件
  * 
- * @author leleliu008
+ * @author 792793182@qq.com
  *
- * @param <Result>
  */
 interface IXMLEvent<Result> {
 

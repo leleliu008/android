@@ -14,22 +14,23 @@ import java.util.regex.Pattern;
 /**
  * CPU信息工具类
  * 
- * @author leleliu008
+ * @author 792793182@qq.com
  * 
  */
 public final class CPUInfo {
 	
 	private static final String TAG = CPUInfo.class.getName();
 	
-    public static final int NORMAL_FREQUENCE = 1100000;// 1.1G
+	/** 正常的CPU频率 - 1.1G */
+    public static final int NORMAL_FREQUENCE = 1100000;
     
-    //CPU的核心数
+    /** CPU的核心数 */
     private static int mCoreCount = 0;
     
-    //CPU的最大频率
+    /** CPU的最大频率 */
     private static int mMaxFrequency = 0;
     
-    //CPU的最小频率
+    /** CPU的最小频率 */
     private static int mMinFrequency = 0;
     
     private CPUInfo() { }

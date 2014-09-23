@@ -10,15 +10,14 @@ import android.util.Log;
 /**
  * 启动界面的工具类
  * 
- * @author leleliu008
+ * @author 792793182@qq.com
  * 
  */
 public final class LauncherManager {
 
 	private static final String TAG = LauncherManager.class.getSimpleName();
 
-	private LauncherManager() {
-	}
+	private LauncherManager() { }
 
 	/**
 	 * 打开网络设置

@@ -11,6 +11,12 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.WindowManager;
 
+/**
+ * 应用程序的环境
+ * 
+ * @author 792793182@qq.com
+ * 
+ */
 public final class Environment {
 	private static final String TAG = Environment.class.getSimpleName();
    

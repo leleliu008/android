@@ -13,32 +13,24 @@ import java.util.Properties;
 /**
  * 解析ini格式的内容
  * 
- * @author leleliu008
+ * @author 792793182@qq.com
  * 
  */
 public final class IniParser {
 
 	private static final int DEFAULT_BUFFER_SIZE = 1024 * 2;
 
-	/**
-	 * 注释标记
-	 */
-	private static final String COMMENT_TAG = "#";
+	/** 注释标记 */
+	private static final String TAG_COMMENT = "#";
 
-	/**
-	 * 属性开始标记
-	 */
-	private static final String PROPERTY_START_TAG = "[";
+	/** 属性开始标记 */
+	private static final String TAG_PROPERTY_START = "[";
 
-	/**
-	 * 属性结束标记
-	 */
-	private static final String PROPERTY_END_TAG = "]";
+	/** 属性结束标记 */
+	private static final String TAG_PROPERTY_END = "]";
 
-	/**
-	 * 分隔标记
-	 */
-	private static final char SEPARATE_TAG = '=';
+	/** 分隔标记 */
+	private static final char TAG_SEPARATE = '=';
 
 	private IniParser() { }
 
@@ -80,11 +72,11 @@ public final class IniParser {
 			String str = null;
 			while ((str = br.readLine()) != null) {
 				str = str.trim();
-				if (str.startsWith(COMMENT_TAG)) {
+				if (str.startsWith(TAG_COMMENT)) {
 					/* 如果是注释行，则读下一行 */
 					continue;
-				} else if (str.startsWith(PROPERTY_START_TAG)
-						&& str.endsWith(PROPERTY_END_TAG)) {
+				} else if (str.startsWith(TAG_PROPERTY_START)
+						&& str.endsWith(TAG_PROPERTY_END)) {
 					/* 如果是新的属性，则创建对象并加入列表 */
 					key = str.substring(1, str.length() - 1);
 					if (key.length() > 0) {
@@ -93,7 +85,7 @@ public final class IniParser {
 					}
 				} else {
 					/* 读取每个键值对 */
-					int index = str.indexOf(SEPARATE_TAG);
+					int index = str.indexOf(TAG_SEPARATE);
 					if (index > 0) {
 						key = str.substring(0, index).trim();
 						value = str.substring(index + 1).trim();

@@ -4,6 +4,12 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * DES对称加密和解密，传入的key必须是8bit=1byte
+ * 
+ * @author 792793182@qq.com
+ *
+ */
 public final class DES {
 	
 	private static final String Algorithm = "DES/ECB/PKCS7Padding";

@@ -4,8 +4,9 @@ import java.util.Map;
 
 /**
  * XML元素
- * @author leleliu008
- *
+ * 
+ * @author 792793182@qq.com
+ * 
  */
 final class XmlElement {
 	
