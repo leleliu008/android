@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AndroidSDK" default="debug" basedir=".">
+    <property file="build.properties" />
+	
+    <!-- 工程中的目录结构 -->
+    <property name="res.dir" value="${basedir}/res" />
+    <property name="assets.dir" value="${basedir}/assets" />
+    <property name="src.dir" value="${basedir}/src" />
+	<property name="out.dir" value="${basedir}/bin" />
+	<property name="classes.dir" value="${out.dir}/classes" />
+	<property name="libs.dir" value="${basedir}/libs" />
+	<property name="gen.dir" value="${basedir}/gen" />
+	
+	<!-- 生成的一些文件 -->
+	<property name="dex-file" value="${out.dir}/classes.dex" />
+	<property name="resources-file" value="${out.dir}/${ant.project.name}.ap_" />
+	<property name="zipalign-out-file" value="${out.dir}/${ant.project.name}_for_android.apk" />
+    <property name="debug-out-file" value="${out.dir}/${ant.project.name}-debug.apk" />
+    <property name="unsigned-out-file" value="${out.dir}/${ant.project.name}-unsigned.apk" />
+    <property name="signed-out-file" value="${out.dir}/${ant.project.name}-signed.apk" />
+
+    <!-- 用到的jar包 -->
+    <property name="android-jar" value="${android.sdk.platform}/android.jar" />
+    <property name="plugin-jar" value="${libs.dir}/plugin.jar" />
+	<property name="universal-image-loader-jar" value="${libs.dir}/universal-image-loader-1.9.3.jar" />
+	
+	<!-- Prepare -->
+    <target name="clear" description="Removes output files created by other targets.">
+        <delete dir="bin" />
+        <delete dir="gen" />
+    </target>
+	
+    <target name="make-dirs" depends="clear">
+        <echo>Creating output directories if needed...</echo>
+        <mkdir dir="bin" />
+        <mkdir dir="bin/classes" />
+        <mkdir dir="gen" />
+    </target>
+
+    <!-- 1. Generate the R.java file for this project's resources. -->
+    <target name="gen-R-java" depends="make-dirs">
+        <echo>Generating R.java / Manifest.java from the resources...</echo>
+        <exec executable="${aapt}" failonerror="true">
+            <arg value="package" />
+            <arg value="-m" />
+            <arg value="-J" />
+            <arg value="${gen.dir}" />
+            <arg value="-M" />
+            <arg value="AndroidManifest.xml" />
+            <arg value="-S" />
+            <arg value="${res.dir}" />
+            <arg value="-I" />
+            <arg value="${android-jar}" />
+        </exec>
+    </target>
+	
+    <!-- 2. Generate java classes from .aidl files. -->
+    <target name="aidl" depends="make-dirs">
+        <echo>Compiling aidl files into Java classes...</echo>
+        <apply executable="${aidl}" failonerror="true">
+            <arg value="-p${android.sdk.platform}/framework.aidl" />
+            <arg value="-I${src.dir}" />
+            <arg value="-o${gen.dir}" />
+            <fileset dir="src">
+                <include name="**/*.aidl" />
+            </fileset>
+        </apply>
+    </target>
+
+    <!-- 3. Compile this project's .java files into .class files. -->
+    <target name="compile" depends="make-dirs, gen-R-java, aidl">
+        <javac encoding="UTF-8" target="1.5" source="1.5" debug="true" extdirs="" destdir="${classes.dir}" 
+        	bootclasspath="${android-jar}"
+        	 fork="true"  memoryMaximumSize="512m">
+            <src path="${src.dir}" />
+            <src path="${gen.dir}" />
+            <classpath>
+                <fileset dir="${libs.dir}" includes="*.jar" />
+            </classpath>
+        </javac>
+    </target>
+
+    <!-- 4. Obscure the package file. -->
+    <target name="obfuscate" depends="compile">
+        <echo>Obscure the class files....</echo>
+        <jar basedir="${classes.dir}" destfile="${out.dir}/temp.jar"/>
+        <java jar="${proguard.home}/proguard.jar" fork="true" failonerror="true">
+            <jvmarg value="-Dmaximum.inlined.code.length=32"/>
+            <jvmarg value="-Xmx512M"/>
+            <arg value="-injars ${out.dir}/temp.jar"/>
+            <arg value="-outjars ${out.dir}/obfuscate.jar"/>
+            <arg value="-libraryjars ${android-jar}" />
+            <arg value="-libraryjars ${plugin-jar}" />
+ 			<arg value="-libraryjars ${universal-image-loader-jar}" />
+            <arg value="@${proguard.config}"/>
+        </java>
+        <delete file="${out.dir}/temp.jar"/>
+        <delete dir="${classes.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+        <unzip src="${out.dir}/obfuscate.jar" dest="${classes.dir}"/>
+        <delete file="${out.dir}/obfuscate.jar"/>
+    </target>
+
+
+    <!-- 5. Convert this project's .class files into .dex files. -->
+    <target name="dex" depends="compile">
+        <echo>Converting compiled files and external libraries into ${dex-file}...</echo>
+        <apply executable="${dx}" failonerror="true" parallel="true">
+            <arg value="--dex" />
+            <arg value="--output=${dex-file}" />
+            <arg path="${classes.dir}" />
+            <fileset dir="${libs.dir}" includes="*.jar" />
+        </apply>
+    </target>
+
+    <!-- 6. Put the project's resources into the output package file. -->
+    <target name="package-res-and-assets">
+        <echo>Packaging resources and assets...</echo>
+        <exec executable="${aapt}" failonerror="true">
+            <arg value="package" />
+            <arg value="-f" />
+            <arg value="-M" />
+            <arg value="AndroidManifest.xml" />
+            <arg value="-S" />
+            <arg value="${res.dir}" />
+            <arg value="-A" />
+            <arg value="${assets.dir}" />
+            <arg value="-I" />
+            <arg value="${android-jar}" />
+            <arg value="-F" />
+            <arg value="${resources-file}" />
+        </exec>
+    </target>
+
+    <!-- 7. Package the application without signing it.
+             This allows for the application to be signed later with an official publishing key. -->
+    <target name="gen-unsigned-apk" depends="dex, package-res-and-assets">
+        <echo>Packaging ${unsigned-out-file} for release...</echo>
+        <exec executable="${apk-builder}" failonerror="true">
+            <arg value="${unsigned-out-file}" />
+            <arg value="-u" />
+            <arg value="-z" />
+            <arg value="${resources-file}" />
+            <arg value="-f" />
+            <arg value="${dex-file}" />
+            <arg value="-rf" />
+            <arg value="${src.dir}" />
+            <arg value="-rj" />
+            <arg value="${libs.dir}" />
+            <arg value="-nf" />
+            <arg value="${libs.dir}" />
+        </exec>
+        <echo>It will need to be signed with jarsigner before being published.</echo>
+    </target>
+
+    <!-- 8. sign the package -->
+    <target name="sign-apk" depends="gen-unsigned-apk">
+        <exec executable="${jarsigner}" failonerror="true">
+            <arg value="-verbose" />
+            <arg value="-storepass" />
+            <arg value="${password}" />
+            <arg value="-keystore" />
+            <arg value="${keystore.path}" />
+            <arg value="-sigfile" />
+            <arg value="CERT" />
+            <arg value="-signedjar" />
+            <arg value="${signed-out-file}" />
+            <arg value="${unsigned-out-file}" />
+            <arg value="${keystore.key}" />
+        </exec>
+    </target>
+
+    <!-- 9. optimize the package -->
+    <target name="zipalign" depends="sign-apk">
+        <exec executable="${zipalign}" failonerror="true">
+            <arg value="-v" />
+            <arg value="-f" />
+            <arg value="4" />
+            <arg value="${signed-out-file}" />
+            <arg value="${zipalign-out-file}" />
+        </exec>
+    </target>
+
+    <target name="debug" depends="zipalign">
+        <echo>Packaging debug package...</echo>
+    </target>
+    
+    <target name="release" depends="zipalign">
+        <echo>Packaging release package...</echo>
+    </target>
+</project>
