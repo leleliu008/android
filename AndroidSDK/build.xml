@@ -161,6 +161,10 @@
             <arg value="${password}" />
             <arg value="-keystore" />
             <arg value="${keystore.path}" />
+            <arg value="-digestalg" />
+            <arg value="SHA1" />
+            <arg value="-sigalg" />
+            <arg value="MD5withRSA" />
             <arg value="-sigfile" />
             <arg value="CERT" />
             <arg value="-signedjar" />
