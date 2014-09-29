@@ -10,6 +10,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.leleliu008.util.IOUtil;
+
 /* 使用HttpClient请求网络连接 */
 final class HttpClientRequest implements IHttpRequest, IHttpClientRequest {
 	

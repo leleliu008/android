@@ -1,4 +1,4 @@
-package com.leleliu008.androidsdk.net.http;
+package com.leleliu008.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
